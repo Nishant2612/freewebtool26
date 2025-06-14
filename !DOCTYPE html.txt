@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A versatile collection of free online tools including text manipulators, number generators, password creator, color converters, and more. Modern, fast, and easy to use.">
+    <meta name="keywords" content="multitool web, online tools, character counter, word counter, case converter, random number generator, password generator, hex to rgb, rgb to hex, free online utilities, modern web tools">
+    
+    <title>Modern Multitool Web - Enhanced Online Utilities (with Ad Gaps)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+
+    <style>
+        :root {
+            --primary-color: #007bff; /* Blue */
+            --secondary-color: #5a6268; /* Darker grey */
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --font-family: 'Poppins', sans-serif;
+            --border-radius: 8px; 
+            --box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --bg-grad-start: #e0f2f1; 
+            --bg-grad-end: #b2dfdb;   
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            background: linear-gradient(135deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%);
+            color: var(--dark-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 0;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        header .tagline {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        nav {
+            background-color: rgba(255, 255, 255, 0.8); 
+            backdrop-filter: blur(5px); 
+            padding: 1rem 0;
+            margin-bottom: 1rem; /* Reduced margin to accommodate first ad gap */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            position: sticky; 
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap; 
+        }
+
+        nav button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.6rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        nav button:hover {
+            background-color: #495057; 
+            transform: translateY(-2px);
+        }
+        nav button.active {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0, 123, 255, 0.4);
+        }
+
+        main {
+            flex-grow: 1;
+            padding-bottom: 2rem;
+        }
+
+        .tool-section {
+            background-color: white;
+            padding: 2.5rem; 
+            margin-bottom: 2.5rem; 
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            display: none; 
+        }
+
+        .tool-section.active-tool {
+            display: block; 
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tool-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.8rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.8rem;
+            font-size: 1.8rem;
+        }
+
+        textarea, input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ced4da;
+            border-radius: var(--border-radius);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        textarea:focus, input[type="number"]:focus, input[type="text"]:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+            outline: none;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .results p, .result-display {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .results span, .result-display strong {
+            font-weight: 600;
+            color: var(--success-color);
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap; 
+        }
+
+        .controls button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.4rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-weight: 500;
+        }
+
+        .controls button:hover {
+            background-color: #0056b3; 
+        }
+        .controls button:active {
+            transform: scale(0.98);
+        }
+
+        .controls.number-controls {
+            align-items: center;
+        }
+        .controls.number-controls label {
+            margin-right: 5px;
+        }
+        .controls.number-controls input[type="number"] {
+            width: 80px;
+            margin-bottom: 0; 
+        }
+
+        /* Password Generator Styles */
+        .password-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+        .password-controls div {
+            display: flex;
+            align-items: center;
+        }
+        .password-controls label {
+            margin-left: 8px;
+            cursor: pointer;
+        }
+        .password-controls input[type="number"] {
+            width: 70px;
+            margin-bottom: 0;
+            margin-left: 5px;
+        }
+        .password-controls input[type="checkbox"] {
+            transform: scale(1.2);
+            margin-right: 5px;
+        }
+        .password-controls button {
+            grid-column: 1 / -1; 
+            margin-top: 10px;
+            padding: 0.8rem;
+            font-size: 1rem;
+        }
+        .password-output-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .password-output-container input[type="text"] {
+            flex-grow: 1;
+            margin-bottom: 0;
+            background-color: #e9ecef;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .password-output-container button {
+            padding: 0.7rem 0.9rem;
+            font-size: 1.2rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .password-output-container button:hover {
+            background-color: #495057;
+        }
+
+        /* Color Converter Styles */
+        .color-converter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 30px; 
+            align-items: end;
+            margin-bottom: 1.5rem;
+        }
+        .hex-input-group, .rgb-input-group, .hex-output-group, .rgb-output-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .rgb-input-group label, .hex-input-group label {
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .rgb-input-group {
+            display: grid;
+            grid-template-columns: auto 1fr auto 1fr auto 1fr; 
+            gap: 5px 10px;
+            align-items: center;
+        }
+        .rgb-input-group input[type="number"] {
+            margin-bottom: 0;
+        }
+        .rgb-input-group button, .hex-input-group button {
+            margin-top: 10px;
+            width: 100%;
+        }
+        .rgb-output-group p, .hex-output-group p {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .rgb-output-group span, .hex-output-group span {
+            font-weight: bold;
+            color: var(--primary-color);
+            padding: 5px;
+            background-color: #e9ecef;
+            border-radius: var(--border-radius);
+            display: inline-block;
+            min-width: 100px;
+            text-align: center;
+        }
+        .color-preview-box {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0; 
+            color: #555;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        /* --- Ad Placeholder Styles --- */
+        .ad-placeholder {
+            width: 100%;
+            max-width: 728px; /* Common ad width */
+            height: 90px;     /* Common ad height */
+            background-color: #e9ecef;
+            border: 2px dashed var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto; /* Centered with top/bottom margin */
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            border-radius: var(--border-radius);
+        }
+        .ad-placeholder p {
+            margin:0;
+        }
+        /* Smaller ad placeholder for in-content */
+        .ad-placeholder-small {
+            height: 60px;
+            font-size: 0.8rem;
+        }
+        /* Specific margin adjustments if needed */
+        .ad-after-nav {
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+
+
+        footer {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            text-align: center;
+            padding: 2rem 0; 
+            font-size: 0.9rem;
+            margin-top: auto; 
+        }
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            header .tagline {
+                font-size: 1rem;
+            }
+            nav .container {
+                flex-direction: column; 
+                align-items: stretch;
+            }
+            nav button {
+                width: 100%;
+                margin-bottom: 8px; 
+            }
+            .tool-section {
+                padding: 1.8rem;
+            }
+            .controls {
+                flex-direction: column;
+            }
+            .controls button {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            .controls.number-controls {
+                flex-direction: row; 
+                flex-wrap: wrap;
+            }
+            .controls.number-controls input[type="number"]{
+                margin-bottom: 10px; 
+            }
+            .password-controls {
+                grid-template-columns: 1fr; 
+            }
+            .color-converter-grid {
+                grid-template-columns: 1fr; 
+            }
+            .rgb-input-group {
+                grid-template-columns: auto 1fr; 
+            }
+            .ad-placeholder {
+                max-width: 90%; /* Adjust for smaller screens */
+                height: auto;   /* Allow height to adjust if needed */
+                min-height: 70px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Modern Multitool Web</h1>
+            <p class="tagline">Your go-to suite for quick online utilities.</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <button data-tool="textCounter" class="active">Text Counter</button>
+            <button data-tool="caseConverter">Case Converter</button>
+            <button data-tool="randomNumber">Random Number</button>
+            <button data-tool="passwordGenerator">Password Generator</button>
+            <button data-tool="colorConverter">Color Converter</button>
+        </div>
+    </nav>
+
+    <!-- Ad Gap 1: After Nav -->
+    <div class="ad-placeholder ad-after-nav">
+        <p>Ad Placeholder 1 (e.g., 728x90 Leaderboard)</p>
+    </div>
+
+    <main class="container">
+        <!-- Tool: Text Counter -->
+        <section id="textCounterTool" class="tool-section active-tool">
+            <h2>Character & Word Counter</h2>
+            <textarea id="textCounterInput" placeholder="Enter your text here..."></textarea>
+            <div class="results">
+                <p>Characters: <span id="charCount">0</span></p>
+                <p>Words: <span id="wordCount">0</span></p>
+            </div>
+        </section>
+
+        <!-- Tool: Case Converter -->
+        <section id="caseConverterTool" class="tool-section">
+            <h2>Case Converter</h2>
+            <textarea id="caseConverterInput" placeholder="Enter text to convert..."></textarea>
+            <div class="controls">
+                <button id="toUpperCaseBtn">UPPERCASE</button>
+                <button id="toLowerCaseBtn">lowercase</button>
+                <button id="toTitleCaseBtn">Title Case</button>
+                <button id="copyCaseOutputBtn">Copy Output</button>
+            </div>
+            <textarea id="caseConverterOutput" readonly placeholder="Converted text will appear here..."></textarea>
+        </section>
+
+        <!-- Ad Gap 2: Between Tool 2 and 3 -->
+        <div class="ad-placeholder ad-placeholder-small">
+            <p>Ad Placeholder 2 (e.g., Medium Rectangle)</p>
+        </div>
+
+        <!-- Tool: Random Number Generator -->
+        <section id="randomNumberTool" class="tool-section">
+            <h2>Random Number Generator</h2>
+            <div class="controls number-controls">
+                <label for="minNum">Min:</label>
+                <input type="number" id="minNum" value="1">
+                <label for="maxNum">Max:</label>
+                <input type="number" id="maxNum" value="100">
+                <button id="generateRandomBtn">Generate</button>
+            </div>
+            <p class="result-display">Your random number: <strong id="randomNumberResult">-</strong></p>
+        </section>
+
+        <!-- Tool: Password Generator -->
+        <section id="passwordGeneratorTool" class="tool-section">
+            <h2>Password Generator</h2>
+            <div class="controls password-controls">
+                <div>
+                    <label for="passLength">Length:</label>
+                    <input type="number" id="passLength" value="12" min="4" max="128">
+                </div>
+                <div>
+                    <input type="checkbox" id="includeUppercase" checked>
+                    <label for="includeUppercase">Uppercase (A-Z)</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="includeLowercase" checked>
+                    <label for="includeLowercase">Lowercase (a-z)</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="includeNumbers" checked>
+                    <label for="includeNumbers">Numbers (0-9)</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="includeSymbols">
+                    <label for="includeSymbols">Symbols (!@#$)</label>
+                </div>
+                <button id="generatePasswordBtn">Generate Password</button>
+            </div>
+            <div class="password-output-container">
+                <input type="text" id="generatedPassword" readonly placeholder="Your secure password...">
+                <button id="copyPasswordBtn" title="Copy Password">📋</button>
+            </div>
+        </section>
+
+        <!-- Ad Gap 3: Between Tool 4 and 5 -->
+        <div class="ad-placeholder ad-placeholder-small">
+            <p>Ad Placeholder 3 (e.g., Responsive Ad)</p>
+        </div>
+
+        <!-- Tool: Color Converter -->
+        <section id="colorConverterTool" class="tool-section">
+            <h2>HEX ↔ RGB Color Converter</h2>
+            <div class="color-converter-grid">
+                <div class="hex-input-group">
+                    <label for="hexInput">HEX Color:</label>
+                    <input type="text" id="hexInput" placeholder="#RRGGBB">
+                    <button id="hexToRgbBtn">Convert to RGB</button>
+                </div>
+                <div class="rgb-output-group">
+                    <p>RGB: <span id="rgbOutput">(R, G, B)</span></p>
+                </div>
+                <div class="rgb-input-group">
+                    <label for="rgbInputR">R:</label>
+                    <input type="number" id="rgbInputR" min="0" max="255" placeholder="0-255">
+                    <label for="rgbInputG">G:</label>
+                    <input type="number" id="rgbInputG" min="0" max="255" placeholder="0-255">
+                    <label for="rgbInputB">B:</label>
+                    <input type="number" id="rgbInputB" min="0" max="255" placeholder="0-255">
+                    <button id="rgbToHexBtn">Convert to HEX</button>
+                </div>
+                <div class="hex-output-group">
+                    <p>HEX: <span id="hexOutput">#RRGGBB</span></p>
+                </div>
+            </div>
+            <div id="colorPreview" class="color-preview-box">
+                <p>Color Preview</p>
+            </div>
+        </section>
+
+        <!-- Ad Gap 4: Before Footer -->
+        <div class="ad-placeholder">
+            <p>Ad Placeholder 4 (e.g., Footer Ad Unit)</p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© <span id="currentYear"></span> Modern Multitool Web. All rights reserved.</p>
+            <p>Built with ❤️ and modern web technologies.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Navigation ---
+            const navButtons = document.querySelectorAll('nav button');
+            const toolSections = document.querySelectorAll('.tool-section');
+
+            function showTool(toolId) {
+                toolSections.forEach(section => {
+                    section.classList.remove('active-tool');
+                    if (section.id === toolId + 'Tool') {
+                        section.classList.add('active-tool');
+                    }
+                });
+                navButtons.forEach(button => {
+                    button.classList.remove('active');
+                    if (button.dataset.tool === toolId) {
+                        button.classList.add('active');
+                    }
+                });
+                const activeToolSection = document.getElementById(toolId + 'Tool');
+                if (activeToolSection) {
+                    const rect = activeToolSection.getBoundingClientRect();
+                    if (rect.top < 80) { 
+                        activeToolSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            }
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    showTool(button.dataset.tool);
+                });
+            });
+
+            // --- Tool: Text Counter ---
+            const textCounterInput = document.getElementById('textCounterInput');
+            const charCountEl = document.getElementById('charCount');
+            const wordCountEl = document.getElementById('wordCount');
+
+            if (textCounterInput) {
+                textCounterInput.addEventListener('input', () => {
+                    const text = textCounterInput.value;
+                    charCountEl.textContent = text.length;
+                    const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+                    wordCountEl.textContent = words.length === 1 && words[0] === '' ? 0 : words.length;
+                });
+            }
+
+            // --- Tool: Case Converter ---
+            const caseConverterInput = document.getElementById('caseConverterInput');
+            const caseConverterOutput = document.getElementById('caseConverterOutput');
+            const toUpperCaseBtn = document.getElementById('toUpperCaseBtn');
+            const toLowerCaseBtn = document.getElementById('toLowerCaseBtn');
+            const toTitleCaseBtn = document.getElementById('toTitleCaseBtn');
+            const copyCaseOutputBtn = document.getElementById('copyCaseOutputBtn');
+
+            function convertCase(type) {
+                const text = caseConverterInput.value;
+                if (!text) return;
+                let result = '';
+                switch (type) {
+                    case 'upper':
+                        result = text.toUpperCase();
+                        break;
+                    case 'lower':
+                        result = text.toLowerCase();
+                        break;
+                    case 'title':
+                        result = text.toLowerCase().split(' ').map(word => 
+                            word.charAt(0).toUpperCase() + word.slice(1)
+                        ).join(' ');
+                        break;
+                }
+                caseConverterOutput.value = result;
+            }
+
+            if (toUpperCaseBtn) toUpperCaseBtn.addEventListener('click', () => convertCase('upper'));
+            if (toLowerCaseBtn) toLowerCaseBtn.addEventListener('click', () => convertCase('lower'));
+            if (toTitleCaseBtn) toTitleCaseBtn.addEventListener('click', () => convertCase('title'));
+            if (copyCaseOutputBtn && caseConverterOutput) {
+                copyCaseOutputBtn.addEventListener('click', () => {
+                    if (caseConverterOutput.value) {
+                        navigator.clipboard.writeText(caseConverterOutput.value).then(() => {
+                            alert('Output copied to clipboard!');
+                        }).catch(err => {
+                            console.error('Failed to copy: ', err);
+                            try {
+                                caseConverterOutput.select();
+                                document.execCommand('copy'); 
+                                alert('Output copied to clipboard (fallback)!');
+                            } catch (e) {
+                                alert('Failed to copy. Please copy manually.');
+                            }
+                        });
+                    }
+                });
+            }
+
+            // --- Tool: Random Number Generator ---
+            const minNumInput = document.getElementById('minNum');
+            const maxNumInput = document.getElementById('maxNum');
+            const generateRandomBtn = document.getElementById('generateRandomBtn');
+            const randomNumberResultEl = document.getElementById('randomNumberResult');
+
+            if (generateRandomBtn) {
+                generateRandomBtn.addEventListener('click', () => {
+                    const min = parseInt(minNumInput.value);
+                    const max = parseInt(maxNumInput.value);
+
+                    if (isNaN(min) || isNaN(max)) {
+                        randomNumberResultEl.textContent = "Invalid input";
+                        randomNumberResultEl.style.color = 'var(--danger-color)';
+                        return;
+                    }
+                    if (min > max) {
+                        randomNumberResultEl.textContent = "Min cannot be greater than Max";
+                        randomNumberResultEl.style.color = 'var(--danger-color)';
+                        return;
+                    }
+                    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+                    randomNumberResultEl.textContent = randomNumber;
+                    randomNumberResultEl.style.color = 'var(--success-color)';
+                });
+            }
+
+            // --- Tool: Password Generator ---
+            const passLengthInput = document.getElementById('passLength');
+            const includeUppercaseCheckbox = document.getElementById('includeUppercase');
+            const includeLowercaseCheckbox = document.getElementById('includeLowercase');
+            const includeNumbersCheckbox = document.getElementById('includeNumbers');
+            const includeSymbolsCheckbox = document.getElementById('includeSymbols');
+            const generatePasswordBtn = document.getElementById('generatePasswordBtn');
+            const generatedPasswordInput = document.getElementById('generatedPassword');
+            const copyPasswordBtn = document.getElementById('copyPasswordBtn');
+
+            const charSets = {
+                uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                lowercase: 'abcdefghijklmnopqrstuvwxyz',
+                numbers: '0123456789',
+                symbols: '!@#$%^&*()_+-=[]{}|;:,.<>?'
+            };
+
+            if (generatePasswordBtn) {
+                generatePasswordBtn.addEventListener('click', () => {
+                    const length = parseInt(passLengthInput.value);
+                    let characterPool = '';
+                    let password = '';
+
+                    if (includeUppercaseCheckbox.checked) characterPool += charSets.uppercase;
+                    if (includeLowercaseCheckbox.checked) characterPool += charSets.lowercase;
+                    if (includeNumbersCheckbox.checked) characterPool += charSets.numbers;
+                    if (includeSymbolsCheckbox.checked) characterPool += charSets.symbols;
+
+                    if (characterPool === '') {
+                        generatedPasswordInput.value = 'Select at least one character set!';
+                        return;
+                    }
+                    if (length < 4 || length > 128) {
+                        generatedPasswordInput.value = 'Length must be between 4 and 128!';
+                        return;
+                    }
+
+                    for (let i = 0; i < length; i++) {
+                        const randomIndex = Math.floor(Math.random() * characterPool.length);
+                        password += characterPool[randomIndex];
+                    }
+                    generatedPasswordInput.value = password;
+                });
+            }
+            if (copyPasswordBtn && generatedPasswordInput) {
+                copyPasswordBtn.addEventListener('click', () => {
+                    if (generatedPasswordInput.value && generatedPasswordInput.value !== 'Select at least one character set!' && generatedPasswordInput.value !== 'Length must be between 4 and 128!') {
+                        navigator.clipboard.writeText(generatedPasswordInput.value).then(() => {
+                            alert('Password copied to clipboard!');
+                        }).catch(err => {
+                            console.error('Failed to copy password: ', err);
+                            alert('Failed to copy. Please copy manually.');
+                        });
+                    }
+                });
+            }
+
+            // --- Tool: Color Converter ---
+            const hexInput = document.getElementById('hexInput');
+            const rgbOutputEl = document.getElementById('rgbOutput');
+            const hexToRgbBtn = document.getElementById('hexToRgbBtn');
+
+            const rgbInputR = document.getElementById('rgbInputR');
+            const rgbInputG = document.getElementById('rgbInputG');
+            const rgbInputB = document.getElementById('rgbInputB');
+            const hexOutputEl = document.getElementById('hexOutput');
+            const rgbToHexBtn = document.getElementById('rgbToHexBtn');
+            const colorPreviewBox = document.getElementById('colorPreview');
+
+            function updateColorPreview(color) {
+                if (colorPreviewBox) {
+                    colorPreviewBox.style.backgroundColor = color;
+                    let r, g, b;
+                    if (color.startsWith('#') && (color.length === 7 || color.length === 4)) {
+                        let hexVal = color.slice(1);
+                        if (hexVal.length === 3) {
+                            hexVal = hexVal.split('').map(char => char + char).join('');
+                        }
+                        r = parseInt(hexVal.substring(0, 2), 16);
+                        g = parseInt(hexVal.substring(2, 4), 16);
+                        b = parseInt(hexVal.substring(4, 6), 16);
+                        
+                        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+                        colorPreviewBox.style.color = luminance > 0.5 ? '#333' : '#fff';
+
+                    } else if (color === '#f0f0f0') { 
+                         colorPreviewBox.style.color = '#555';
+                    }
+                }
+            }
+            
+            if (hexToRgbBtn) {
+                hexToRgbBtn.addEventListener('click', () => {
+                    let hex = hexInput.value.trim();
+                    if (hex.startsWith('#')) {
+                        hex = hex.slice(1);
+                    }
+                    if (!/^[0-9A-Fa-f]{6}$/.test(hex) && !/^[0-9A-Fa-f]{3}$/.test(hex)) {
+                        rgbOutputEl.textContent = "Invalid HEX";
+                        rgbOutputEl.style.color = 'var(--danger-color)';
+                        updateColorPreview('#f0f0f0');
+                        return;
+                    }
+                    if (hex.length === 3) { 
+                        hex = hex.split('').map(char => char + char).join('');
+                    }
+
+                    const r = parseInt(hex.substring(0, 2), 16);
+                    const g = parseInt(hex.substring(2, 4), 16);
+                    const b = parseInt(hex.substring(4, 6), 16);
+
+                    rgbOutputEl.textContent = `(${r}, ${g}, ${b})`;
+                    rgbOutputEl.style.color = 'var(--success-color)';
+                    rgbInputR.value = r;
+                    rgbInputG.value = g;
+                    rgbInputB.value = b;
+                    updateColorPreview(`#${hex}`);
+                });
+            }
+
+            if (rgbToHexBtn) {
+                rgbToHexBtn.addEventListener('click', () => {
+                    const r = parseInt(rgbInputR.value);
+                    const g = parseInt(rgbInputG.value);
+                    const b = parseInt(rgbInputB.value);
+
+                    if (isNaN(r) || isNaN(g) || isNaN(b) || r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+                        hexOutputEl.textContent = "Invalid RGB";
+                        hexOutputEl.style.color = 'var(--danger-color)';
+                        updateColorPreview('#f0f0f0');
+                        return;
+                    }
+
+                    const toHex = (c) => {
+                        const hex = c.toString(16);
+                        return hex.length === 1 ? "0" + hex : hex;
+                    };
+
+                    const hexColor = `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
+                    hexOutputEl.textContent = hexColor;
+                    hexOutputEl.style.color = 'var(--success-color)';
+                    hexInput.value = hexColor;
+                    updateColorPreview(hexColor);
+                });
+            }
+            
+            [hexInput, rgbInputR, rgbInputG, rgbInputB].forEach(input => {
+                if (input) {
+                    input.addEventListener('input', () => {
+                        if (input === hexInput) {
+                            let hex = hexInput.value.trim();
+                            if (hex.startsWith('#')) {
+                                hex = hex.slice(1);
+                            }
+                            if (/^[0-9A-Fa-f]{6}$/.test(hex) || /^[0-9A-Fa-f]{3}$/.test(hex)) {
+                                let fullHex = hex;
+                                if (hex.length === 3) fullHex = hex.split('').map(char => char + char).join('');
+                                updateColorPreview(`#${fullHex}`);
+                            } else {
+                                updateColorPreview('#f0f0f0'); 
+                            }
+                        } else { 
+                            const r = parseInt(rgbInputR.value);
+                            const g = parseInt(rgbInputG.value);
+                            const b = parseInt(rgbInputB.value);
+                            if (!isNaN(r) && !isNaN(g) && !isNaN(b) && r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255) {
+                                const toHex = c => c.toString(16).padStart(2, '0');
+                                updateColorPreview(`#${toHex(r)}${toHex(g)}${toHex(b)}`);
+                            } else {
+                                updateColorPreview('#f0f0f0'); 
+                            }
+                        }
+                    });
+                }
+            });
+
+            // --- Footer Year ---
+            const currentYearEl = document.getElementById('currentYear');
+            if (currentYearEl) {
+                currentYearEl.textContent = new Date().getFullYear();
+            }
+
+            // --- Show first tool by default ---
+            if (navButtons.length > 0) {
+                showTool(navButtons[0].dataset.tool);
+            }
+        });
+    </script>
+</body>
+</html>
